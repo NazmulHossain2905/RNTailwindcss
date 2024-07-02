@@ -76,7 +76,7 @@ npm uninstall -D prettier
 npm uninstall --save-dev prettier
 ```
 
-## 2. install `prettier` & `prettier-plugin-tailwindcss`
+## 2. Install `prettier` & `prettier-plugin-tailwindcss`
 
 ```bash
 npm install -D prettier prettier-plugin-tailwindcss
@@ -97,7 +97,7 @@ Rename the `.prettierrc.js` file to `prettier.json` or just `.prettierrc` and th
 }
 ```
 
-## Finally, Restart the Project.
+## Finally, Restart the Project to See the Result.
 
 🎉 I hove that's downing well.
 
