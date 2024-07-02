@@ -1,79 +1,108 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# React Native Tailwindcss
 
-# Getting Started
+# NativeWind
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## 1. Installation
 
-## Step 1: Start the Metro Server
+You will need to install both `nativewind` and `tailwindcss`
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
+`tailwindcss` is not used during runtime so it can be added as a development dependency.
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+npm install nativewind
+npm install --save-dev tailwindcss@3.3.2
 ```
 
-## Step 2: Start your Application
+## 2. Setup Tailwind CSS
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+Run `npx tailwindcss init` to create a `tailwind.config.js` file
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+npx tailwindcss init
 ```
 
-### For iOS
+Add the paths to all of your component files in your `tailwind.config.js` file.
+
+```javascript
+// tailwind.config.js
+
+module.exports = {
+- content: [],
++ content: ["./App.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+## 3. Add the Babel plugin
+
+Modify your `babel.config.js`
+
+```javascript
+// babel.config.js
+module.exports = {
+  presets: ['module:metro-react-native-babel-preset'],
++ plugins: ["nativewind/babel"],
+};
+```
+
+### Thats it 🎉
+
+---
+
+# Resolve Typescript `ClassName` Error
+
+NativeWind extends the React Native types via declaration merging. The simplest method to include the types is to create a new exact `nativewind-env.d.ts` file to the root dir and add a triple-slash directive referencing the types.
+
+Add the following code to the `nativewind-env.d.ts` file.
+
+```javascript
+/// <reference types="nativewind/types" />
+```
+
+---
+
+# Add Prettier (Sorting ClassNames Order)
+
+## 1. Uninstall Pre-Installed `prettier`
 
 ```bash
-# using npm
-npm run ios
+npm uninstall -D prettier
 
-# OR using Yarn
-yarn ios
+// or
+
+npm uninstall --save-dev prettier
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## 2. install `prettier` & `prettier-plugin-tailwindcss`
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+```bash
+npm install -D prettier prettier-plugin-tailwindcss
+```
 
-## Step 3: Modifying your App
+## 3. Rename the `.prettierrc.js` file
 
-Now that you have successfully run the app, let's modify it.
+Rename the `.prettierrc.js` file to `prettier.json` or just `.prettierrc` and then paste below the codes.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+```json
+{
+  "arrowParens": "avoid",
+  "bracketSameLine": true,
+  "bracketSpacing": false,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
+```
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## Finally, Restart the Project.
 
-## Congratulations! :tada:
+🎉 I hove that's downing well.
 
-You've successfully run and modified your React Native App. :partying_face:
+To run the project
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+```bash
+npx react-native run-android
+```
