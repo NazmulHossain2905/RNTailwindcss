@@ -8,9 +8,9 @@ You will need to install both `nativewind` and `tailwindcss`
 
 `tailwindcss` is not used during runtime so it can be added as a development dependency.
 
+ - First, install the latest version of Nativewind. if you face any problems, switch to version `"^2.0.11"`.
 ```bash
 npm install nativewind
-// First install the latest version of Nativewind. if you face any problem then switch to version "^2.0.11".
 npm install --save-dev tailwindcss@3.3.2
 ```
 
